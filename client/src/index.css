@@ -11,3 +11,56 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  text-align: center;
+}
+
+.form_container {
+  position: relative;
+  padding: 5rem  10%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input {
+  width: 100%;
+  padding-top: 3rem;
+}
+
+.titleLogin {
+  margin-bottom: 10px;
+  font-size: 40px;
+  font-family: "Pacifico", cursive;
+}
+
+.input_2 {
+  margin-bottom: 10px;
+  margin-top: 7px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.ListContainer {
+  padding: 60px;
+}
+
+.ListStyle {
+  font-weight: 500;
+  color: green;
+  border-radius: 6px;
+  box-shadow: 1px 1px 2px black;
+  padding: 10px;
+  margin: auto;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.inputLogin {
+  margin-top: 2rem !important;
+}
