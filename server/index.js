@@ -1,15 +1,20 @@
 const express = require("express");
+const bodyParser = require('body-parser')
+const cors = require("cors");
+const db = require("./utils/firestore");
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Express on Vercel");
-});
+const api = require("./api");
 
-app.get("/test", (req, res) => {
-    res.send("test");
-  });
-  
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+api.use(cors({ origin: true }));
+app.use(cors({ origin: true }));
+
+app.use('/api', api);
 
 app.listen(5000, () => {
   console.log("Running on port 5000.");

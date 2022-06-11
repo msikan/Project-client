@@ -1,11 +1,19 @@
 import axios from "axios";
 
-const HOST = "https://mahon-lev.vercel.app/";
+let HOST = "http://localhost:5000/api";
+
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  // dev code
+} else {
+  // production code
+  HOST = "https://mahon-lev.vercel.app/api";
+}
+
 
 let instance = axios.create({
     baseURL:`${HOST}`,
     headers: {
-    //   "Access-Control-Allow-Origin": "*",
+     "Access-Control-Allow-Origin": "*",
     //   authorization: `Bearer ${access_token}`,
     },
 });

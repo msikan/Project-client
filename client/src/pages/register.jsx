@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { signIn } from "../api/auth";
+import { signIn, signUp } from "../api/auth";
 import { setAuthToken, setAuthEmail } from "../utils/auth";
 import Backdrop from "../components/commons/backdrop";
 import { useNavigate } from "react-router-dom";
 
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,7 +22,7 @@ export default function LoginPage() {
     setErroMessage("");
     const body = { password, email };
     setLoading(true);
-    const result = await signIn(body);
+    const result = await signUp(body);
     console.log({result})
     if (result && result.data && result.data.success) {
       setAuthToken(result.data?.token);
@@ -34,15 +34,15 @@ export default function LoginPage() {
     setLoading(false);
   };
 
-  const handleRegister = () => {
-    navigate('/register');
+  const handleLogin = () => {
+    navigate('/login');
   }
 
   return (
     <div sx={{ }}>
       <Paper elevation={15}>
         <div className="form_container">
-          <div className="titleLogin"> Login </div>
+          <div className="titleLogin"> Register </div>
           <TextField
             className="input inputLogin"
             label="Username"
@@ -62,11 +62,11 @@ export default function LoginPage() {
           <br />
           <br />
           <Button onClick={SubmitBtn} variant="contained" color="primary">
-            Login
+            Register
           </Button>
           <br />
-          <Button onClick={handleRegister} variant="link" color="primary">
-            register
+          <Button onClick={handleLogin} variant="link" color="primary">
+            login
           </Button>
           <br />
           <div style={{ color: 'red' }}>
