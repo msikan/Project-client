@@ -13,7 +13,7 @@ function validateEmail(email) {
 
 module.exports.signup = function (req, res) {
   try {
-    const { password, email } = req.body || {};
+    const { password, email, userName } = req.body || {};
 
     if (!email || !validateEmail(email)) {
       res.status(200).json({
@@ -32,6 +32,7 @@ module.exports.signup = function (req, res) {
         const user = {
           email,
           password: hash,
+          userName
         };
         db.collection("user").doc(email).set(user);
         const token = jwt.sign({ email }, SECRET_KEY, {
@@ -89,6 +90,31 @@ module.exports.signin = async function (req, res) {
           message: `Error incorrect`,
         });
       }
+    }
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      message: `Error was found`,
+      error,
+    });
+  }
+};
+
+module.exports.getUserInfo = async function (req, res) {
+  try {
+    const email = req.email;
+    const data = await db.collection("user").doc(email).get();
+    const user = data && data.data && data.data();
+    if (user) {
+      res.status(200).json({
+        success: true,
+        data: {...user },
+      });
+    } else {
+      res.status(200).json({
+        success: false,
+        message: `Error was found`,
+      });
     }
   } catch (error) {
     res.status(200).json({

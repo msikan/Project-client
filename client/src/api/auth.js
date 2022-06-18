@@ -1,5 +1,7 @@
 
-import { post } from './index';
+import { post, get } from './index';
+
+import { store } from '../store';
 
 export const signIn = ({ email, password }) => {
     return post({
@@ -13,11 +15,18 @@ export const signIn = ({ email, password }) => {
 
 
 
-export const signUp = ({ email, password }) => {
+export const signUp = ({ email, password, userName }) => {
     return post({
         url: '/auth/signup',
         body: {
-            email, password
+            email, password, userName
         }
+    })
+}
+
+
+export const getUserInfo = () => {
+    return get({
+        url: '/auth/userInfo',
     })
 }

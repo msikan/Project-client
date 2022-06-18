@@ -18,6 +18,13 @@ let instance = axios.create({
     },
 });
 
+// Set the AUTH token for any request
+instance.interceptors.request.use(function (config) {
+  const token = localStorage.getItem('token');
+  config.headers.Authorization =  token ? `Bearer ${token}` : '';
+  return config;
+});
+
 export const get = async ({ url }) => {
   try {
     const { data } = await instance.get(`${url}`);

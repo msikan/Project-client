@@ -1,0 +1,33 @@
+
+
+.container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.containreButton {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+
+    button {
+        padding: 1rem 2rem;
+        border-radius: 1rem;
+        cursor: pointer;
+    }
+}
+
+.buttonSell {
+    background-color: white;
+    color: #1976d2;
+    border: 0.2px #1976d2 solid;
+}
+
+.buttonBuy {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+}

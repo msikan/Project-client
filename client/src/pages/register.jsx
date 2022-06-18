@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function RegisterPage() {
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +21,7 @@ export default function RegisterPage() {
 
   const SubmitBtn = async() => {
     setErroMessage("");
-    const body = { password, email };
+    const body = { password, email, userName };
     setLoading(true);
     const result = await signUp(body);
     console.log({result})
@@ -46,6 +47,14 @@ export default function RegisterPage() {
           <TextField
             className="input inputLogin"
             label="Username"
+            type="text"
+            autoComplete="current-password"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+          <TextField
+            className="input inputLogin"
+            label="Email"
             type="text"
             autoComplete="current-password"
             value={email}

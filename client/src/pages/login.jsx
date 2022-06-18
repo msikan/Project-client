@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -6,6 +6,8 @@ import { signIn } from "../api/auth";
 import { setAuthToken, setAuthEmail } from "../utils/auth";
 import Backdrop from "../components/commons/backdrop";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import { setUser, setAuth } from "../store/appSlice";
 
 
 export default function LoginPage() {
@@ -18,6 +20,15 @@ export default function LoginPage() {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setUser({ email: 'test'}));
+  },[])
+
+
+
+
   const SubmitBtn = async() => {
     setErroMessage("");
     const body = { password, email };
@@ -27,6 +38,8 @@ export default function LoginPage() {
     if (result && result.data && result.data.success) {
       setAuthToken(result.data?.token);
       setAuthEmail(email);
+      dispatch(setUser({ email }));
+      dispatch(setAuth({ token: result.data?.token, isConnected: true }));
       navigate('/');
     } else {
       setErroMessage("password or email not correct")

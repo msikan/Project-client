@@ -76,7 +76,7 @@ const ResponsiveAppBar = () => {
               textDecoration: "none",
             }}
           >
-            Mahon Lev
+             Lev Coins
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -131,7 +131,7 @@ const ResponsiveAppBar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Lev Coins
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map(({ page, url }) => (
