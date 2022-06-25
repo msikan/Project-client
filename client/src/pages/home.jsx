@@ -7,7 +7,7 @@ import { getAuthEmail } from "../utils/auth";
 
 const Home = () => {
 
-  const { email, userName, levCoins } = useSelector(state => state?.app?.user);
+  const { email, userName, levCoins, coins } = useSelector(state => state?.app?.user);
 
 
 
@@ -18,9 +18,9 @@ const Home = () => {
       <div className="App">
           <p> welcome <strong>{userName}</strong> </p>
       </div>
-      <MyCoins />
+      <MyCoins coins={coins} />
       <Transactions />
-      <BuyAndSell />
+      <BuyAndSell coins={coins} />
     </div>
   );
 };
