@@ -24,6 +24,14 @@ export default function LoginPage() {
 
   const dispatch = useDispatch();
 
+
+  useEffect(()=>{
+    setAuthToken("");
+    setAuthEmail("");
+    dispatch(setUser({ email: "" }));
+    dispatch(setAuth({ token: "", isConnected: false }));
+  },[]);
+
  
 
 

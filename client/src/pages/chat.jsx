@@ -1,6 +1,6 @@
 
 
-import ChatRoom from '../components/Room';
+import ChatRoom from '../components/Chat';
 
 
 const Room = () => {

@@ -7,6 +7,8 @@ import RegisterPage from "./register";
 import useUserAuth from "../hooks/useUserAuth";
 import Backdrop from "../components/commons/backdrop";
 import Room from "./room";
+import Chat from "./chat";
+
 
 const Main = () => {
   const { loading } = useUserAuth();
@@ -20,6 +22,7 @@ const Main = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/room" element={<Room />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </div>
   );

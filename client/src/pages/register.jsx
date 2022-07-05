@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -6,6 +6,8 @@ import { signIn, signUp } from "../api/auth";
 import { setAuthToken, setAuthEmail } from "../utils/auth";
 import Backdrop from "../components/commons/backdrop";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAuth, setUser } from "../store/appSlice";
 
 
 export default function RegisterPage() {
@@ -18,6 +20,16 @@ export default function RegisterPage() {
   const [errorMessage,setErroMessage] = useState("");
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+
+  useEffect(()=>{
+    setAuthToken("");
+    setAuthEmail("");
+    dispatch(setUser({ email: "", useName: "", coins: 0 }));
+    dispatch(setAuth({ token: "", isConnected: false }));
+  },[]);
 
   const SubmitBtn = async() => {
     setErroMessage("");
