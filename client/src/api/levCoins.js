@@ -2,18 +2,20 @@
 import { post, get } from './index';
 
 
-export const updateLevCoins = ({ coins }) => {
+export const updateLevCoins = ({ coins, lastCoins }) => {
     return post({
         url: '/levcoins',
         body: {
-            coins
+            coins,
+            lastCoins
         }
     })
 }
 
 
-export const getLevCoins = ({ coins }) => {
-    return get({
+export const getLevCoins = async() => {
+    const { data } = await get({
         url: '/levcoins'
-    })
+    }) || {};
+    return data;
 }

@@ -4,21 +4,24 @@ import Home from "./home";
 import Login from "./login";
 import RegisterPage from "./register";
 
-import useUserAuth from '../hooks/useUserAuth';
+import useUserAuth from "../hooks/useUserAuth";
 import Backdrop from "../components/commons/backdrop";
+import Room from "./room";
 
 const Main = () => {
-
   const { loading } = useUserAuth();
 
   if (loading) return <Backdrop open={true} />;
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<RegisterPage />} />
-    </Routes>
+    <div className="mainContainer">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/room" element={<Room />} />
+      </Routes>
+    </div>
   );
 };
 

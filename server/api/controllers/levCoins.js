@@ -3,12 +3,33 @@ let db = admin.firestore();
 
 module.exports.addLevCoins = async function (req, res) {
   try {
-    const { coins } = req.body || {};
+    const { coins, lastCoins } = req.body || {};
     const email = req.email;
-    console.log({ email });
+    console.log({ email, coins, lastCoins });
+    const data = await db.collection("transaction").doc(email).get();
+    const transactions = data && data.data && data.data();
     await db.collection("user").doc(email).update({
-      coins,
+      coins: lastCoins + coins,
     });
+    if (transactions) {
+      await db.collection("transaction").doc(email).update({
+        [new Date()]: {
+          coins,
+          lastCoins,
+          createdDate: new Date(),
+          email,
+        }
+      });
+    } else {
+      await db.collection("transaction").doc(email).set({
+        [new Date()]: {
+          coins,
+          createdDate: new Date(),
+          email,
+        }
+      });
+    }
+    
     res.status(200).json({
       success: true,
     });
@@ -25,7 +46,7 @@ module.exports.addLevCoins = async function (req, res) {
 module.exports.getLevCoins = async function (req, res) {
   try {
     const email = req.email;
-    const data = await db.collection("user").doc(email).get();
+    const data = await db.collection("transaction").doc(email).get();
     const user = data && data.data && data.data();
     if (user) {
       res.status(200).json({
@@ -35,7 +56,8 @@ module.exports.getLevCoins = async function (req, res) {
     } else {
       res.status(200).json({
         success: false,
-        message: `Error was found`,
+        message: `no transaction found`,
+        email
       });
     }
   } catch (error) {

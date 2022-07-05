@@ -8,6 +8,7 @@ import Backdrop from "../components/commons/backdrop";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, setAuth } from "../store/appSlice";
+import useUserAuth from "../hooks/useUserAuth";
 
 
 export default function LoginPage() {
@@ -17,14 +18,13 @@ export default function LoginPage() {
   const [loading,setLoading] = useState(false);
 
   const [errorMessage,setErroMessage] = useState("");
+  const { getUserInfoApi } = useUserAuth();
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(setUser({ email: 'test'}));
-  },[])
+ 
 
 
 
@@ -40,6 +40,7 @@ export default function LoginPage() {
       setAuthEmail(email);
       dispatch(setUser({ email }));
       dispatch(setAuth({ token: result.data?.token, isConnected: true }));
+      await getUserInfoApi();
       navigate('/');
     } else {
       setErroMessage("password or email not correct")
@@ -52,8 +53,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div sx={{ }}>
-      <Paper elevation={15}>
+    <div style={{ height: '100%'}}>
+      <Paper elevation={15} style={{ height: '100%'}}>
         <div className="form_container">
           <div className="titleLogin"> Login </div>
           <TextField

@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 
 
 
-export default function ModalSell({ open, handleClose, defaultCoins }) {
+export default function ModalSell({ open, handleClose, defaultCoins, getApiTransactions }) {
 
     const [coins,setCoins] = React.useState(defaultCoins || 0);
     const [loading,setLoading] = React.useState(false);
@@ -24,8 +24,10 @@ export default function ModalSell({ open, handleClose, defaultCoins }) {
 
     const handleUpdateCoins = async () => {
         setLoading(true);
-        await updateLevCoins({ coins });
+        await updateLevCoins({ coins, lastCoins: defaultCoins });
         dispatch(setUser({ coins }));
+        await getApiTransactions();
+        handleClose();
         setLoading(false);
     }
 

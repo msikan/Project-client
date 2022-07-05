@@ -19,6 +19,10 @@ const pages = [
     page: "Home",
     url: "/",
   },
+  {
+    page: "Chat Room",
+    url: "/room",
+  },
 ];
 const settings = [
   {

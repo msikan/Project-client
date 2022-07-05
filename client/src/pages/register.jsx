@@ -40,8 +40,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <div sx={{ }}>
-      <Paper elevation={15}>
+    <div style={{ height: '100%'}}>
+      <Paper elevation={15} style={{ height: '100%'}}>
         <div className="form_container">
           <div className="titleLogin"> Register </div>
           <TextField

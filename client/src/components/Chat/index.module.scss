@@ -1,0 +1,108 @@
+.navRow {
+    display: flex;
+    justify-content: space-between;
+  }
+  .main {
+    padding: 10px;
+    height: 70vh;
+    margin: 2rem 0;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+  }
+  .main::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+  .main::-webkit-scrollbar-track {
+    background: #0b93f6;
+  }
+  .main::-webkit-scrollbar-thumb {
+    background: #3f51b5;
+  }
+  .text {
+    max-width: 500px;
+    margin-bottom: 12px;
+    line-height: 24px;
+    padding: 10px 7px;
+    border-radius: 10px;
+    position: relative;
+    color: white;
+    text-align: left;
+  }
+  .audio {
+    max-width: 500px;
+    margin-bottom: 12px;
+    line-height: 24px;
+    padding: 7px 7px;
+    border-radius: 10px;
+    position: relative;
+    color: black;
+    text-align: left;
+    background-color: #f1f1f1fd;
+  }
+  .message {
+    display: flex;
+  }
+  
+  .sent {
+    flex-direction: row-reverse;
+  }
+  
+  .sent .text {
+    color: white;
+    background: #0b93f6;
+    align-self: flex-start;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+
+  }
+  .received .text {
+    background: #e5e5ea;
+    color: black;
+
+  }
+  
+  .form {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    background-color: white;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mic {
+    cursor: pointer;
+    font-size: 40px;
+  }
+  .textBtn {
+    padding: 10px;
+    margin: 6px;
+  }
+  .formCol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    gap: 1rem;
+  }
+
+  .user {
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .textInput {
+    width: 100%;
+    line-height: 24px;
+    padding: 10px 7px;
+    border-radius: 10px;
+    position: relative;
+    color: white;
+    text-align: left;
+  }

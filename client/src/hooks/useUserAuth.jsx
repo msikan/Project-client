@@ -38,10 +38,20 @@ const useUserAuth = () => {
     }
 
 
+    const getUserInfoApi = async() => {
+        const { data } = await getUserInfo() || {};
+        if (data?.success) {
+            //setIsAuth(true);
+            dispatch(setUser({ ...(data?.data || {}), coins: (data?.data?.coins || 0) }));
+        }
+    }
+
+
 
 
     return {
-        loading
+        loading,
+        getUserInfoApi
     }
 }
 

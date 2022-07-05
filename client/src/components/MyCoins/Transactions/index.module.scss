@@ -1,5 +1,26 @@
 
 
 .container {
-    margin: 2rem 1rem;
+    margin: 3rem 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    // max-height: 60vh;
+    width: 100%;
+    overflow: auto;
+}
+
+
+.transation {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0 1rem;
+}
+
+.coins { 
+    font-weight: bold;
 }

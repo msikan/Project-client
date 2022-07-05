@@ -105,7 +105,6 @@ module.exports.getUserInfo = async function (req, res) {
     const email = req.email;
     const data = await db.collection("user").doc(email).get();
     const user = data && data.data && data.data();
-    console.log({ user });
     if (user) {
       res.status(200).json({
         success: true,
