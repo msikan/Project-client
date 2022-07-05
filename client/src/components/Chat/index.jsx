@@ -43,7 +43,7 @@ const Rooms = () => {
             ...(data[key] || {}),
             id: key,
           }))
-          .slice(-8);
+          .slice(-6);
         setChats(messages);
       });
     }
