@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import { useEffect, useRef, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+import { IconButton } from "@mui/material";
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 import "firebase/firestore";
 import Button from "@mui/material/Button";
@@ -8,10 +10,9 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import styles from "./index.module.scss";
 import Chats from "./Chat";
-import { useEffect } from "react";
-import { useState } from "react";
 import { useSelector } from "react-redux";
-
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import Backdrop from "../commons/backdrop";
 var firebaseConfig = {
   apiKey: "AIzaSyA34Lo7QhlbVKB3OIcrE2PKoqesDAs4QYU",
   authDomain: "mahon-lev.firebaseapp.com",
@@ -27,39 +28,69 @@ let app, db;
 app = initializeApp(firebaseConfig);
 db = getDatabase(app);
 
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+
 const Rooms = () => {
   const [chats, setChats] = useState([]);
   const [message, setMessage] = useState("");
+  const [loading,setLoading] = useState(true);
 
   const activeUser = useSelector((state) => state?.app?.user?.email);
+
+  const chatParentLower = useRef(null);
+  const chatParentUpper = useRef(null);
+
 
   useEffect(() => {
     if (db) {
       onValue(ref(db, "chats"), (snapshot) => {
         const data = snapshot.val();
         console.log({ data });
-        const messages = Object.keys(data)
-          ?.map((key) => ({
-            ...(data[key] || {}),
-            id: key,
-          }))
-          .slice(-6);
-        setChats(messages);
+        if (data) {
+          const messages = Object.keys(data)
+            ?.map((key) => ({
+              ...(data[key] || {}),
+              id: key,
+            }))
+            .slice(-20);
+          setChats(messages);
+          scroolToLower();
+        }
+        setLoading(false);
       });
     }
   }, []);
 
   const sumitData = async () => {
     if (message) {
-      await set(ref(db, "chats/" + new Date()), {
+      await set(ref(db, "chats/" + uuidv4()), {
         message: message,
         createdAt: new Date(),
         cate: "text",
         user: activeUser,
       });
       setMessage("");
+      scroolToLower();
     }
   };
+
+  const scroolToLower = () => {
+    const domNode = chatParentLower.current;
+    if (domNode) {
+      domNode.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const scroolToUpper = () => {
+    const domNode = chatParentUpper.current;
+    if (domNode) {
+      domNode.scrollIntoView({ behavior: "smooth" });
+    }
+  }
 
   const onKeyDown = (event) => {
     if (event.keyCode === 13) {
@@ -70,6 +101,7 @@ const Rooms = () => {
   return (
     <Container maxWidth="lg">
       <main className={styles.main}>
+      <div ref={chatParentUpper} /> 
         {chats.map((el) => (
           <Chats
             styles={styles}
@@ -78,7 +110,19 @@ const Rooms = () => {
             activeUser={activeUser}
           />
         ))}
+        <div ref={chatParentLower} /> 
+        <div>
+          {!loading && chats?.length === 0 && <span>No Message in this room</span>}
+        </div>
       </main>
+      <div className={styles.formColLowerUpper}>
+        <IconButton aria-label="delete" size="large" onClick={scroolToLower}>
+          <ArrowDropDownIcon />
+        </IconButton>
+        <IconButton aria-label="delete" size="large" onClick={scroolToUpper}>
+          <ArrowDropUpIcon />
+        </IconButton>
+      </div>
       <div className={`${styles.form}`}>
         <div className={styles.formCol}>
           <TextField
@@ -90,6 +134,7 @@ const Rooms = () => {
             onKeyDown={onKeyDown}
             name="value"
             value={message}
+            fullWidth
           />
           <Button
             variant="contained"
@@ -102,6 +147,7 @@ const Rooms = () => {
           </Button>
         </div>
       </div>
+      <Backdrop open={loading} />
     </Container>
   );
 };
